@@ -345,7 +345,7 @@ long EfsRpcEncryptFileExSrv(
     /* [unique][string][in] */ wchar_t *ProtectorDescriptor,
     /* [in] */ unsigned long Flags);
 
-DWORD EfsRpcQueryProtectors( 
+DWORD EfsRpcQueryProtectors(
     /* [in] */ handle_t binding_h,
     /* [string][in] */ wchar_t *FileName,
     /* [out] */ PENCRYPTION_PROTECTOR_LIST **ppProtectorList);

