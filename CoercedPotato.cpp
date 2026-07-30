@@ -15,8 +15,13 @@
 #include <strsafe.h>
 #include <random>
 
+#if defined(_WIN64)
 #include "lib/ms-efsr_h.h"
 #include "lib/ms-rprn_h.h"
+#else
+#include "lib/ms-efsr_h_x86.h"
+#include "lib/ms-rprn_h_x86.h"
+#endif
 #include "win32errorcodes/c/win32errors.h"
 #include "CoerceFunctions.h"
 #include "CLI11.hpp"
@@ -206,6 +211,7 @@ BOOL GetSystem(HANDLE hPipe)
     }
 
     bResult = TRUE;
+    goto cleanup;
 
 cleanup:
     if (hSystemToken)

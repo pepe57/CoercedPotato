@@ -4,11 +4,11 @@
 
 
  /* File created by MIDL compiler version 8.01.0628 */
-/* at Mon Jan 18 19:14:07 2038
+/* at Tue Jan 19 04:14:07 2038
  */
 /* Compiler settings for IDL_FILES\ms-rprn.idl:
-    Oicf, W1, Zp8, env=Win64 (32b run), target_arch=AMD64 8.01.0628 
-    protocol : all , ms_ext, c_ext, robust
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.01.0628 
+    protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
@@ -191,6 +191,11 @@ typedef unsigned short *PWORD;
 
 typedef unsigned short *LPWORD;
 
+/* GUID, FILETIME, SYSTEMTIME, SIZE, RECTL, DEVMODE and the winspool.h info
+   structures (DOC_INFO_1, DRIVER_INFO_1/2, FORM_INFO_1, JOB_INFO_1/2/3/4,
+   MONITOR_INFO_1/2, PORT_INFO_1/2/3, PRINTER_INFO_1..9) are already provided
+   by the Windows SDK (Windows.h pulls in winspool.h) — redeclaring their
+   bodies here conflicts with the SDK's own definitions. */
 
 typedef struct _GUID UUID;
 
@@ -204,11 +209,9 @@ typedef /* [context_handle] */ void *PRINTER_HANDLE;
 
 typedef /* [handle] */ wchar_t *STRING_HANDLE;
 
-
 typedef struct _FILETIME *PFILETIME;
 
 typedef struct _FILETIME *LPFILETIME;
-
 
 typedef struct _SYSTEMTIME *PSYSTEMTIME;
 
@@ -353,7 +356,6 @@ typedef struct _PRINTER_INFO_STRESS
     DWORD dwReserved2;
     DWORD dwReserved3;
     } 	PRINTER_INFO_STRESS;
-
 
 typedef struct _SPLCLIENT_INFO_1
     {

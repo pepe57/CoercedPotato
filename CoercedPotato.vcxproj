@@ -129,8 +129,18 @@
   <ItemGroup>
     <ClCompile Include="CoercedPotato.cpp" />
     <ClCompile Include="CoerceFunctions.cpp" />
-    <ClCompile Include="rpc_interfaces\ms-efsr_c.c" />
-    <ClCompile Include="rpc_interfaces\ms-rprn_c.c" />
+    <ClCompile Include="rpc_interfaces\ms-efsr_c.c">
+      <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="rpc_interfaces\ms-rprn_c.c">
+      <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="rpc_interfaces\ms-efsr_c_x86.c">
+      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="rpc_interfaces\ms-rprn_c_x86.c">
+      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="win32errorcodes\c\win32errors.c" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +148,8 @@
     <ClInclude Include="CoerceFunctions.h" />
     <ClInclude Include="lib\ms-efsr_h.h" />
     <ClInclude Include="lib\ms-rprn_h.h" />
+    <ClInclude Include="lib\ms-efsr_h_x86.h" />
+    <ClInclude Include="lib\ms-rprn_h_x86.h" />
     <ClInclude Include="win32errorcodes\c\win32errors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

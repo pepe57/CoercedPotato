@@ -27,6 +27,12 @@
     <ClCompile Include="rpc_interfaces\ms-rprn_c.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="rpc_interfaces\ms-efsr_c_x86.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="rpc_interfaces\ms-rprn_c_x86.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="win32errorcodes\c\win32errors.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -42,6 +48,12 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="lib\ms-rprn_h.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ms-efsr_h_x86.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ms-rprn_h_x86.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="win32errorcodes\c\win32errors.h">
