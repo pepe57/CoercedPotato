@@ -2,7 +2,7 @@
 
 From Patate (LOCAL/NETWORK SERVICE) to SYSTEM by abusing `SeImpersonatePrivilege` on Windows 10, Windows 11 and Server 2022.
 
-For more information: [https://blog.hackvens.fr/articles/CoercedPotato.html](https://blog.hackvens.fr/articles/CoercedPotato.html) (The english version is coming soon!! 😄)
+For more information: [https://blog.hackvens.fr/articles/CoercedPotato.html](https://blog.hackvens.fr/articles/CoercedPotato.html).
 
 A very quick PoooooC:
 
@@ -63,5 +63,3 @@ Options:
   -f,--force BOOLEAN          Force all RPC functions even if it says 'Exploit worked!' (Default value : false)
   --interactive BOOLEAN       Set wether the process should be run within the same shell or open a new window. (Default value : true)
 ```
-
-Made in France 🇫🇷 with <3
